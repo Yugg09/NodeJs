@@ -1,3 +1,5 @@
+const fs = require('fs'); //fs ek file system module hai jo Node.js ke andar built-in hota hai, is module ka use hum file system se related operations karne ke liye karte hain, jaise ki file read karna, file write karna, file delete karna, etc.
+
 let a = 10;
 let b = "Hello World";
 
@@ -6,6 +8,10 @@ console.log(b);
 function add(x, y) {
     return x + y;
 }
+
+fs.readFile("./data.json", "utf-8",(err,res) => {   // ye bhi ek asynchronous function hai, isme pehle file read karne ka request jayega aur jab file read ho jayegi tabhi callback function execute hoga. Iska matlab ye hai ki jab tak file read nahi ho jati, tab tak ye code execute nahi hoga. 
+    console.log(res)
+});
 
 setTimeout(() => {   //blocking code, it will be executed after 3 seconds
     console.log("This is a timeout function"); // this code handled by libuv and will be executed after 3 seconds

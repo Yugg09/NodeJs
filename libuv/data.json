@@ -1,0 +1,5 @@
+{
+    "name": "libuv",
+    "description": "A multi-platform support library with a focus on asynchronous I/O.",
+    "version": "1.44.2"
+}
