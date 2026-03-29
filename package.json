@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Yugg09/NodeJs/issues"
   },
-  "homepage": "https://github.com/Yugg09/NodeJs#readme"
+  "homepage": "https://github.com/Yugg09/NodeJs#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
