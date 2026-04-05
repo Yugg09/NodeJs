@@ -11,7 +11,7 @@ const bookstore = [
 
 app.use(express.json());
 
-app.get("/book", (req,res) => {
+app.get("/book", (req,res) => { //imp
     res.send(bookstore);
 })
 
