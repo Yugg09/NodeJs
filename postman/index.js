@@ -27,6 +27,25 @@ app.post("/book", (req,res) =>{ //data req ke andar ayega //ye data hum save kar
 
 })
 
+app.patch("/book", (req,res)=>{ ///update karne ke liye
+    console.log(req.body)
+
+   const book =  bookstore.find(info => info.id === req.body.id);
+
+
+   if(req.body.author)
+   book.author = req.body.author
+
+    res.send("patch updated")
+})
+
+app.delete("/book/:id", (req,res)=>{
+   const id =  parseInt(req.params.id);
+  const index = bookstore.findIndex(info => info.id ===  id);
+   bookstore.splice(index,1);
+   res.send("successfully deleted");
+})
+
 app.listen(3000, ()=>{
     console.log("listening at port 3000")
 })
