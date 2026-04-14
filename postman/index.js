@@ -12,7 +12,9 @@ const bookstore = [
 app.use(express.json());
 
 app.get("/book", (req,res) => { //imp
-    res.send(bookstore);
+   console.log(req.query); //query parmeter
+    const book = bookstore.filter(info => info.author === req.query.author); // this gives only required data
+    res.send(book);
 })
 
 app.get("/book/:id", (req,res) => {
