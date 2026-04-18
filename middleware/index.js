@@ -3,6 +3,15 @@ const app = express();
 
 //app.use(route,raoute handler)
 //middleware : wale respond nhi karte hai mw -> mw -> req handler
+
+app.use("/user",(req,res,next)=>{ //this saves the logs // ye middlware hai
+    console.log(`${Date.now()} ${req.method} ${req.url}`);
+    //authenticatioin wgera bhi kar skta hu
+    next();
+})
+
+
+
 app.use("/user" , (req,res,next) => { //route handler 
     //res.send("hello ji")
     next();
