@@ -84,6 +84,72 @@ app.patch("/admin",Auth, (req,res)=>{
 })
 
 
+
+
+
+//cart system---------------------------------------------
+
+//add items to cart
+app.post("/user/:id", (req,res)=>{
+    
+    const id = parseInt(req.params.id);
+
+   const Fooditem = FoodMenu.find(item => item.id === id);
+
+    if(Fooditem){
+        AddtoCart.push(Fooditem);
+        res.send("item adddes");
+    }
+    else{
+        res.send("item out of stock");
+    }
+})
+
+//remove items from cart
+
+app.delete("/user/:id", (req,res)=>{
+    
+    try{
+    const id = parseInt(req.params.id);
+
+   const index =  AddtoCart.find(item => item.id === id);
+
+   if(index!= -1){
+       AddtoCart.splice(index,1);
+       res.send("item removed");
+   }
+   else{
+    res.send("item not present");
+   }}
+   catch(err){
+    res.send("some error" +err)
+   }
+})
+
+//look at my cart
+
+app.get("/user", (req,res)=>{
+   
+    if(AddtoCart.length === 0){
+        res.send("cart is empty")
+    }
+    res.send(AddtoCart);
+})
+
+//error handling --------------------------
+
+app.get("/dummy",(req,res)=>{
+      try{
+        // JSON.parse("invalid json"); //we have to handle this error
+        throw new Error('BROKEN')
+
+    res.send("hello");
+      }
+      catch(err){
+        res.send("some error occ" + err)
+      }
+})
+
 app.listen(3000, ()=>{
     console.log("listening at port 3000")
 })
