@@ -4,7 +4,7 @@ const app = express();
 
 //CRUD:
 
-//Database:array
+//Database:array 
 
 app.use(express.json())
 
