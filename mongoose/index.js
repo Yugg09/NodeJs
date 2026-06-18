@@ -5,32 +5,63 @@ const User = require("./models/user");
 
 app.use(express.json());
 
-app.get("/info",async (req,res)=>{
-   const ans =  await User.find({});
-   res.send(ans);
+app.post("/register",async(req,res)=>{
+
+    try{
+         
+       await User.create(req.body)
+         res.send("user reg successfully")
+    }
+    catch(err){
+        res.send("Error" + err.message);
+    }
 })
 
-app.post("/info",async(req,res)=>{
-    //const ans = new User(req.body);
-     //await ans.save();
-      try{
-     await User.create(req.body);
-     res.send("successfully updated")
-      }
-      catch(err){
-        res.send(err);
-      }
+app.get("/info",async(req,res)=>{
+    try{
+          const result = await User.find();
+          res.send(result);
+    }
+    catch(err){
+       res.send("error" + err.message);
+    }
 })
 
-app.delete("/info",async (req,res)=>{
-    await User.deleteOne({name:"vihal"});
-    res.send("deleted");
+app.get("/user/:id",async(req,res)=>{
+    try{
+        const result =  await  User.findById(req.params.id);
+        res.send(result);
+    }
+    catch(err){
+       res.send("error" + err.message);
+    }
 })
 
-app.put("/info" ,async (req,res)=>{
-     const result = await User.updateOne({name : 'yug'}, {age:40 , city:"bangla"});
-    res.send("updated");
+app.delete("/user/:id",async(req,res)=>{
+    try{
+        const result =  await  User.findByIdAndDelete(req.params.id);
+       
+        res.send("deleted")
+    }
+    catch(err){
+       res.send("error" + err.message);
+    }
 })
+
+app.patch("/user/:id",async(req,res)=>{
+    try{
+
+        const {_id, ...update} = req.body //desctructuring
+      await  User.findByIdAndUpdate(_id,update,{runValidators : true});
+       
+        res.send("updated");
+    }
+    catch(err){
+       res.send("error" + err.message);
+    }
+})
+
+
 
 main()
 .then(async ()=>{
