@@ -4,7 +4,7 @@ const app = express();
 
 //CRUD:
 
-//Database:array 
+//Database:array
 
 app.use(express.json())
 
@@ -121,8 +121,8 @@ app.delete("/user/:id", (req,res)=>{
    else{
     res.send("item not present");
    }}
-   catch(err){
-    res.send("some error" +err)
+   catch(error){
+    res.send("some error")
    }
 })
 
