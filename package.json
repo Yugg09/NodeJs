@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Yugg09/NodeJs#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.2.1",
     "mongodb": "^7.3.0",
     "mongoose": "^9.7.0"
