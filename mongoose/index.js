@@ -2,19 +2,55 @@ const express = require("express");
 const app = express();
 const main = require("./database")
 const User = require("./models/user");
+const validateUser = require("./utils/validate")
+const bcrypt = require("bcrypt");
 
 app.use(express.json());
 
 app.post("/register",async(req,res)=>{
 
     try{
-         
+        //api level validation
+        //req.body ke andar data aya usmein first name present hona chaiye
+
+        validateUser(req.body);
+
+        //pasword hashing
+        req.body.password = await bcrypt.hash(req.body.password,10);
+
+     
        await User.create(req.body)
          res.send("user reg successfully")
     }
     catch(err){
         res.send("Error" + err.message);
     }
+})
+
+app.post("/login",async(req,res)=>{
+    try{
+          //validate
+          //1:user ko nikalna get by id
+          const people = await User.findById(req.body._id);
+
+          //2:check email
+          if(!(req.body.emailId === people.emailId))
+            throw new Error("invalid email");
+          
+
+          //3:password match
+            const isallowed = await bcrypt.compare(req.body.password, people.password)
+
+            if(!isallowed)
+                throw new Error("invalid pass");
+
+            res.send("login success");
+    }
+    catch(err){
+        res.send("error" + err.message);
+    }
+    
+    
 })
 
 app.get("/info",async(req,res)=>{

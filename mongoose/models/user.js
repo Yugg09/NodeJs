@@ -34,7 +34,8 @@ const userSchema = new mongoose.Schema({ //yhi field honge bas
       
     },
     password:{
-        type:String
+        type:String,
+        required: true
     },
     photo:{
         type:String,
